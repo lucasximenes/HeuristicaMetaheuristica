@@ -4,9 +4,6 @@ mutable struct OneFlip
 end
 
 function eval(oneFlip::OneFlip, pos::Int64)::Int64
-    feasible = false
-    original_cost = oneFlip.solution.cost
-
     if pos in oneFlip.solution.x
         return 0
     elseif findfirst(x -> x == 0, oneFlip.solution.covered .- oneFlip.instance.m_coverage[:, pos]) !== nothing

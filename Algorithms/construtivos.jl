@@ -1,4 +1,4 @@
-function constByCost(instance::scpInstance)
+function constByCost(instance::scpInstance)::Solution
     
     descoberto = true
     v_cobertura = zeros(Int64, instance.num_lin)
@@ -24,14 +24,14 @@ function constByCost(instance::scpInstance)
 
         j=j+1
     end
-    return v_sol, cost_sol, v_cobertura
+    return Solution(v_sol, cost_sol, v_cobertura)
 end
 
 
 
 
 ### checar se não precisar tirar a coluna construida da matriz de cobertura
-function outroConst(instance::scpInstance)
+function outroConst(instance::scpInstance)::Solution
     v_sol = []
     v_coverage = [0 for i in 1:instance.num_lin]
     cost = 0
@@ -56,7 +56,7 @@ function outroConst(instance::scpInstance)
         end
     end
 
-    return v_sol, cost, v_coverage
+    return Solution(v_sol, cost, v_coverage)
 end
 
 

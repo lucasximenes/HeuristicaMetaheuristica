@@ -21,5 +21,4 @@ function set_cover_decoder(vet::Vector{Float64}, instance::scpInstance, rewrite:
 end
 
 function set_cover_decoder_LS(vet::Vector{Float64}, instance::scpInstance, rewrite::Bool=false)::Int64
-    
 end

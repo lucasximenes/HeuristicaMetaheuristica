@@ -4,7 +4,7 @@ mutable struct OneFlip
 end
 
 function eval(oneFlip::OneFlip, pos::Int64)::Int64
-    if pos in oneFlip.solution.x
+    if !(pos in oneFlip.solution.x)
         return 0
     elseif findfirst(x -> x == 0, oneFlip.solution.covered .- oneFlip.instance.m_coverage[:, pos]) !== nothing
         return 0
@@ -14,11 +14,10 @@ function eval(oneFlip::OneFlip, pos::Int64)::Int64
 end
 
 function move!(oneFlip::OneFlip, pos::Int64)
-    oneFlip.solution = Solution(filter(x -> x == pos, oneFlip.solution.x),
+    oneFlip.solution = Solution(filter(x -> x != pos, oneFlip.solution.x),
      oneFlip.solution.cost - oneFlip.instance.v_cost[pos],
      oneFlip.solution.covered .- oneFlip.instance.m_coverage[:, pos])
 end
-
 
 function bestImprovement!(oneFlip::OneFlip)
     best_reduction = 0

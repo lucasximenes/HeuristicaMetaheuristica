@@ -4,9 +4,9 @@ include("Data/scpInstance.jl")
 include("utils.jl")
 include("Algorithms/construtivos.jl")
 include("Algorithms/decoders.jl")
-include("benchmark.jl")
 include("LocalSearch/oneflip.jl")
 include("LocalSearch/twoflip.jl")
+include("benchmark.jl")
 
 function main()
 
@@ -18,11 +18,25 @@ function main()
 
     oneFlip = OneFlip(instance, sol)
     bestImprovement!(oneFlip)
+    @show oneFlip.solution.cost, oneFlip.solution.x
+
     twoFlip = TwoFlip(instance, sol)
     bestImprovement!(twoFlip)
-
-    @show oneFlip.solution.cost, oneFlip.solution.x
     @show twoFlip.solution.cost, twoFlip.solution.x
+
+    random_chromosome = rand(instance.num_col)
+    
+    rand_sol = set_cover_decoder(random_chromosome, instance, false, true)
+
+    @show rand_sol.cost, rand_sol.x
+
+    oneFlip = OneFlip(instance, rand_sol)
+    bestImprovement!(oneFlip)
+    @show oneFlip.solution.cost, oneFlip.solution.x
+    
+    # twoFlip = TwoFlip(instance, rand_sol)
+    # bestImprovement!(twoFlip)
+    # @show twoFlip.solution.cost, twoFlip.solution.x
 
     # initial_chromosome = buildChromosome(instance, sol)
 
@@ -44,4 +58,4 @@ function main()
     return
 end
 
-main()
+execute_benchmark()

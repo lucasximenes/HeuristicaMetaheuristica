@@ -12,7 +12,7 @@ function execute_benchmark()
             for i in 1:10
                 Random.seed!(i)
                 gene = rand(instance.num_col)
-                info = @timed set_cover_decoder(gene, instance)
+                info = @timed set_cover_decoder_LS(gene, instance, OneFlip)
                 times[i] = info[2]
                 costs[i] = info[1]
                 diffs[i] = (costs[i] - opts[j]) / opts[j]

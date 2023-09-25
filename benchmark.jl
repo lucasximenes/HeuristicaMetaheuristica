@@ -2,10 +2,10 @@ function execute_benchmark()
     opts =  [463, 289, 4, 288, 258, 30, 203]
 
     j = 1
-    for file in readdir("./data")
+    for file in readdir("./Data/instances")
         if occursin(".txt", file)
             println("Solving instance: $file")
-            instance = scpInstance("./data/" * file)
+            instance = scpInstance("./Data/instances/" * file)
             times = zeros(10)
             costs = zeros(10)
             diffs = zeros(10)

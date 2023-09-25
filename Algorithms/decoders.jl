@@ -1,4 +1,4 @@
-function set_cover_decoder(vet::Vector{Float64}, instance::scpInstance, rewrite::Bool=false)::Int64
+function set_cover_decoder(vet::Vector{Float64}, instance::scpInstance, rewrite::Bool=false, LS::Bool=false)::Int64
     
     sorted_indices = sortperm(vet)
     covered = falses(instance.num_lin)
@@ -18,4 +18,8 @@ function set_cover_decoder(vet::Vector{Float64}, instance::scpInstance, rewrite:
             end
         end
     end
+end
+
+function set_cover_decoder_LS(vet::Vector{Float64}, instance::scpInstance, rewrite::Bool=false)::Int64
+    
 end

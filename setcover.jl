@@ -2,11 +2,26 @@ using Random, Statistics, BrkgaMpIpr
 
 include("Data/scpInstance.jl")
 include("utils.jl")
-include("Algorithms/construtivos.jl")
-include("Algorithms/decoders.jl")
 include("LocalSearch/oneflip.jl")
 include("LocalSearch/twoflip.jl")
+include("Algorithms/construtivos.jl")
+include("Algorithms/decoders.jl")
 include("benchmark.jl")
+
+function constAndLS(instance::scpInstance, constr::Symbol, neighborhood::Union{Type{OneFlip}, Type{TwoFlip}})::Solution
+    sol = nothing
+    if constr == :const
+        sol = constByCost(instance)
+    elseif constr == :greedy
+        sol = outroConst(instance)
+    else
+        @error "Invalid construction heuristic"
+    end
+
+    neighbor = neighborhood(instance, sol)
+    bestImprovement!(neighbor)
+    return neighbor.solution
+end
 
 function main()
 
@@ -14,31 +29,17 @@ function main()
 
     sol = outroConst(instance)
 
-    @show sol.cost, sol.x
-
     oneFlip = OneFlip(instance, sol)
     bestImprovement!(oneFlip)
-    @show oneFlip.solution.cost, oneFlip.solution.x
+
+    @show oneFlip.solution
 
     twoFlip = TwoFlip(instance, sol)
     bestImprovement!(twoFlip)
-    @show twoFlip.solution.cost, twoFlip.solution.x
 
-    random_chromosome = rand(instance.num_col)
-    
-    rand_sol = set_cover_decoder(random_chromosome, instance, false, true)
+    @show twoFlip.solution
 
-    @show rand_sol.cost, rand_sol.x
-
-    oneFlip = OneFlip(instance, rand_sol)
-    bestImprovement!(oneFlip)
-    @show oneFlip.solution.cost, oneFlip.solution.x
-    
-    # twoFlip = TwoFlip(instance, rand_sol)
-    # bestImprovement!(twoFlip)
-    # @show twoFlip.solution.cost, twoFlip.solution.x
-
-    # initial_chromosome = buildChromosome(instance, sol)
+    # initial_chromosome = buildChromosome(instance, twoFlip.solution)
 
     # if (set_cover_decoder(initial_chromosome, instance, false) == sol.cost)
     #     @info "Decoder and initial solution are OK"
@@ -58,4 +59,4 @@ function main()
     return
 end
 
-execute_benchmark()
+main()

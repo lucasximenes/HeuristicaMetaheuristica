@@ -10,7 +10,7 @@ function set_cover_decoder(vet::Vector{Float64}, instance::scpInstance, rewrite:
         push!(v, index)
         for cover in findall(x -> x == 1, instance.m_coverage[:, index])
             covered[cover] += 1
-            if covered == 1
+            if covered[cover] == 1
                 count += 1
                 if count == instance.num_lin
                     return LS ? Solution(v, cost, covered) : cost
@@ -21,7 +21,7 @@ function set_cover_decoder(vet::Vector{Float64}, instance::scpInstance, rewrite:
     return LS ? Solution(v, cost, covered) : cost
 end
 
-function set_cover_decoder_LS(vet::Vector{Float64}, instance::scpInstance, neighborhood::Union{OneFlip, TwoFlip})::Solution
+function set_cover_decoder_LS(vet::Vector{Float64}, instance::scpInstance, neighborhood::Union{Type{OneFlip}, Type{TwoFlip}})::Solution
     sol = set_cover_decoder(vet, instance, false, true)
     
     viz = neighborhood(instance, sol)

@@ -34,18 +34,21 @@ function main()
 
     @show oneFlip.solution
 
-    twoFlip = TwoFlip(instance, sol)
-    bestImprovement!(twoFlip)
+    # twoFlip = TwoFlip(instance, sol)
+    # bestImprovement!(twoFlip)
 
-    @show twoFlip.solution
+    # @show twoFlip.solution
 
-    # initial_chromosome = buildChromosome(instance, twoFlip.solution)
+    initial_chromosome = buildChromosome(instance, oneFlip.solution)
 
-    # if (set_cover_decoder(initial_chromosome, instance, false) == sol.cost)
-    #     @info "Decoder and initial solution are OK"
-    # else
-    #     @error "Decoder and/or initial solution are NOT OK"
-    # end
+    println(set_cover_decoder(initial_chromosome, instance, false))
+    println(oneFlip.solution.cost)
+
+    if (set_cover_decoder(initial_chromosome, instance, false) == oneFlip.solution.cost)
+        @info "Decoder and initial solution are OK"
+    else
+        @error "Decoder and/or initial solution are NOT OK"
+    end
 
     # brkga_data, control_params = build_brkga(instance, set_cover_decoder, MINIMIZE, 4, instance.num_col, "config.conf")
 

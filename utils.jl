@@ -13,10 +13,11 @@ function buildChromosome(instance::scpInstance, sol::Solution)::Vector{Float64}
     keys = sort(rand_keys)
     initial_chromosome = zeros(instance.num_col)
     for i in 1:instance.num_col
-        if i > length(sol.v)
-            initial_chromosome[setdiff(collect(1:instance.num_col), sol.v)] = keys[i:end]
+        if i > length(sol.x)
+            initial_chromosome[setdiff(collect(1:instance.num_col), sol.x)] = keys[i:end]
             break
         end
-        initial_chromosome[v[i]] = keys[i]
+        initial_chromosome[sol.x[i]] = keys[i]
     end
+    return initial_chromosome
 end

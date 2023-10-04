@@ -2,7 +2,7 @@
 
 julia_version = "1.8.5"
 manifest_format = "2.0"
-project_hash = "a7a86a1ea01792d4b4e057fce8f429709b3554fe"
+project_hash = "ec41fe5405c6287b3a3bac033a0f365747b8baa2"
 
 [[deps.ArgTools]]
 uuid = "0dad84c5-d112-42e6-8d28-ef12dabb789f"
@@ -120,6 +120,12 @@ version = "1.15.1"
 [[deps.Distributed]]
 deps = ["Random", "Serialization", "Sockets"]
 uuid = "8ba89e20-285c-5b6f-9357-94700520ee1b"
+
+[[deps.DocOpt]]
+deps = ["Dates", "Printf"]
+git-tree-sha1 = "9c2681389ed8d9cf6193b1ba31796f12456b111a"
+uuid = "968ba79b-81e4-546f-ab3a-2eecfa62a9db"
+version = "0.5.0"
 
 [[deps.DocStringExtensions]]
 deps = ["LibGit2"]

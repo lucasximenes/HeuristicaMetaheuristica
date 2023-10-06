@@ -187,13 +187,14 @@ function main(args)
     # solution. First, we create a set of keys to be used in the chromosome.
     Random.seed!(seed)
     sol = outroConst(instance)
+    initial_chromosome = buildChromosome(instance, sol)
 
-    oneFlip = OneFlip(instance, sol)
-    bestImprovement!(oneFlip)
+    # oneFlip = OneFlip(instance, sol)
+    # bestImprovement!(oneFlip)
 
-    @show oneFlip.solution
+    # @show oneFlip.solution
 
-    initial_chromosome = buildChromosome(instance, oneFlip.solution)
+    # initial_chromosome = buildChromosome(instance, oneFlip.solution)
 
     # Then, we visit each node in the tour and assign to it a key.
     # initial_chromosome = zeros(instance.num_col)
@@ -431,7 +432,4 @@ Options:
 args = DocOpt.docopt(doc)
 main(args)
 
-
-```
-PS C:\PUC\HeuristicaMetaheuristica> julia --project=./MH  main_complete.jl -c config.conf -s 10 -r I -a 100 -t 60 -i "Data/instances/scpd1.txt"
-```
+#julia --project=./MH  main_complete.jl -c config.conf -s 10 -r I -a 100 -t 60 -i "Data/instances/scpd1.txt"
